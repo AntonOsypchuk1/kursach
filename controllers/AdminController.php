@@ -9,7 +9,8 @@ use models\User;
 
 class AdminController extends Controller
 {
-    public function indexAction() {
+    public function indexAction()
+    {
         if (!User::isAdmin())
             return $this->render(403);
         $user = User::getCurrentAuthenticatedUser();
@@ -17,7 +18,9 @@ class AdminController extends Controller
             'user' => $user
         ]);
     }
-    public function usersAction() {
+
+    public function usersAction()
+    {
         if (!User::isAdmin())
             return $this->render(403);
         $users = User::getAllUsers();
@@ -25,7 +28,9 @@ class AdminController extends Controller
             'users' => $users
         ]);
     }
-    public function ordersAction() {
+
+    public function ordersAction()
+    {
         if (!User::isAdmin())
             return $this->render(403);
         $orders = Order::getAllOrders();
@@ -33,23 +38,25 @@ class AdminController extends Controller
             'orders' => $orders
         ]);
     }
-    public function orderDeleteAction($params) {
+
+    public function orderDeleteAction($params)
+    {
         if (!User::isAdmin())
             return $this->render(403);
         $order_id = $params[0];
+        $boolDel = $params[1];
         $order = Order::getOrderById($order_id);
-        if (Core::getInstance()->requestMethod === 'POST') {
-            $boolDel = $params[1];
-            if ($boolDel == 'yes') {
-                Order::deleteOrder($order_id);
-                return $this->redirect('/admin/orders');
-            }
+        if ($boolDel == 'yes') {
+            Order::deleteOrder($order_id);
+            return $this->redirect('/admin/orders');
         }
         return $this->render(null, [
             'order' => $order
         ]);
     }
-    public function orderEditAction($params) {
+
+    public function orderEditAction($params)
+    {
         if (!User::isAdmin())
             return $this->render(403);
         $order_id = $params[0];

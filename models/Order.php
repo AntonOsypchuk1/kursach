@@ -36,9 +36,13 @@ class Order
 
     public static function getOrderById($id)
     {
-        return Core::getInstance()->db->select(self::$tableName, '*', [
+        $row =  Core::getInstance()->db->select(self::$tableName, '*', [
             'id' => $id
         ]);
+        if (!empty($row))
+            return $row[0];
+        else
+            return null;
     }
 
     public static function getAllOrders()

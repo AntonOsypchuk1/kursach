@@ -46,7 +46,7 @@ core\Core::getInstance()->pageParams['title'] = 'Admin page';
                     <div class="col-12">
                         <table class="table">
                             <thead>
-                            <tr>
+                            <tr>q
                                 <th>#</th>
                                 <th>Email</th>
                                 <th>Name</th>
