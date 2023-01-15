@@ -2,8 +2,10 @@
 /** @var array $category */
 /** @var array $products */
 
+use core\Core;
 use models\User;
 
+Core::getInstance()->pageParams['title'] = $category['name'];
 ?>
 
 <div class="row mb-5 mt-5">

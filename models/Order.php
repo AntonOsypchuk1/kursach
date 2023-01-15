@@ -34,14 +34,30 @@ class Order
         return $generated_id;
     }
 
-    public static function getOrderById($id)
+    public static function updateOrder($row, $id)
     {
-        $row =  Core::getInstance()->db->select(self::$tableName, '*', [
+        $fieldsList = ['user_email', 'status', 'total_price', 'date_delivery', 'comment', 'address', 'shipment'];
+        $row = Utils::filterArray($row, $fieldsList);
+        $row['address'] = json_encode($row['address']);
+        $row['total_price'] = floatval($row['total_price']);
+        if (empty($row['date_delivery']))
+            $row['date_delivery'] = null;
+
+        Core::getInstance()->db->update(self::$tableName, $row, [
             'id' => $id
         ]);
-        if (!empty($row))
+    }
+
+    public static function getOrderById($id)
+    {
+        $row = Core::getInstance()->db->select(self::$tableName, '*', [
+            'id' => $id
+        ]);
+        if (!empty($row)) {
+            $row[0]['cart'] = json_decode($row[0]['cart'], true);
+            $row[0]['address'] = json_decode($row[0]['address'], true);
             return $row[0];
-        else
+        } else
             return null;
     }
 

@@ -13,12 +13,11 @@ class CartController extends Controller
 {
     public function indexAction($params)
     {
-        $input = '';
-        foreach ($_COOKIE as $cookie) {
-            $input .= $cookie;
-        }
-        preg_match_all('/cookie[0-9]]/', strval($_COOKIE), $matches);
-        var_dump($_COOKIE);
+//        $input = '';
+//        foreach ($_COOKIE as $cookie) {
+//            $input .= $cookie;
+//        }
+//        preg_match_all('/cookie[0-9]]/', strval($_COOKIE), $matches);
 
 
         if ($params[0] === 'remove') {
